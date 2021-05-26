@@ -1,0 +1,20 @@
+server:
+  port: 8091
+  
+spring:
+  application.name: gateway
+  cloud:
+    gateway:
+      default-filters:
+      - PrefixPath=/
+      routes:
+      #================
+      - id: login
+        uri: lb://login
+        predicates:
+        - Path=/flashcard/**
+      #================
+      - id: bug
+        uri: lb://bug
+        predicates:
+        - Path=/bug/**
