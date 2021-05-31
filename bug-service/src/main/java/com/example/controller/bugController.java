@@ -33,9 +33,9 @@ public class bugController {
 	
 	@GetMapping("/login/logindetail")
 	public ResponseEntity<String> testBug(@RequestParam("username") String username,@RequestParam("password") String password){
-		if(loginClient.loginCheck(username, password))
-		return ResponseEntity.ok("this works");
-		return ResponseEntity.badRequest().build();
+		String role = loginClient.loginCheck(username, password);
+		return ResponseEntity.ok(role);
+//		return ResponseEntity.badRequest().build();
 	}
 	
 	

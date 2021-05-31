@@ -39,14 +39,14 @@ public class LoginController {
 //		return new RestTemplate();
 //	}
 	
-	@PostMapping("initial")
-	public ResponseEntity<String> initialvalue(@RequestBody User user)
-	{
-		loginServ.insertUser(user);
-		System.out.println("user is saved successfully");
-		
-		return new ResponseEntity<String>("users are saved succesfully",HttpStatus.ACCEPTED);
-	}
+//	@PostMapping("initial")
+//	public ResponseEntity<String> initialvalue(@RequestBody User user)
+//	{
+//		loginServ.insertUser(user);
+//		System.out.println("user is saved successfully");
+//		
+//		return new ResponseEntity<String>("users are saved succesfully",HttpStatus.ACCEPTED);
+//	}
 	
 	@PostMapping("/registration")
 	public ResponseEntity<String> registrationInsert(@RequestBody User user)
@@ -56,29 +56,42 @@ public class LoginController {
 		
 		return new ResponseEntity<String>("users are saved succesfully",HttpStatus.ACCEPTED);
 	}
+	
+	
+//	@PostMapping("/registration")
+//	public ResponseEntity<String> registrationInsert(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("profilePicture") String profile)
+//	{
+//		
+//		
+//	//	System.out.println("adding ");
+//		String role="1";
+//		//System.out.println(username+password+profile);
+//		User user1= new User(username,password,profile,role);
+//		System.out.println(loginServ.findByuserName(username));
+//		
+//		if(loginServ.findByuserName(username)) {
+//			
+//			loginServ.insertUser(user1);
+//
+//			
+//		}else {
+//			
+//			
+//			return new ResponseEntity<String>("users already exists",HttpStatus.ACCEPTED);
+// 
+//		}
+//		
+//	//	System.out.println("user is saved successfully");
+//		
+//		return new ResponseEntity<String>("users are saved succesfully",HttpStatus.ACCEPTED);
+//	}
 
 	
 	@PostMapping("/logindetail")
-	public ResponseEntity<Boolean> loginCheck(@RequestParam("username") String username,@RequestParam("password") String password)
+	public ResponseEntity<String> loginCheck(@RequestParam("username") String username,@RequestParam("password") String password)
 	{
-       System.out.println(username);
-       System.out.println(password);
-		Boolean b =loginServ.CheckusernameAndPasswordMatch(username, password);
-		
-		if(b == true)
-		{
-			//this.restTemp.getForObject("http://localhost:9003/flashcar", null);
-		}
-		return new ResponseEntity<Boolean>(b,HttpStatus.ACCEPTED);
+		String str =loginServ.login(username, password);
+		return new ResponseEntity<String>(str,HttpStatus.ACCEPTED);
 	}
-
-	
-	
-	
-
-
-	
-	
-	
 	
 }

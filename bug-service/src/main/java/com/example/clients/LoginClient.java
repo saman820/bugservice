@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name="login")
 public interface LoginClient {
 	@PostMapping("/logindetail")
-	public Boolean  loginCheck(@RequestParam("username") String username,@RequestParam("password") String password);
+	public String  loginCheck(@RequestParam("username") String username,@RequestParam("password") String password);
 }

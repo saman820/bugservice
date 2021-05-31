@@ -20,18 +20,32 @@ public class LoginService {
 	
 	
 	//for login 
-	public  Boolean CheckusernameAndPasswordMatch(String username,String password) {
-		Long id =  loginRepo.findIdByEmailAndPassword(username, password);
-		System.out.println(id);
-		return id !=null;
+	public  String login(String username,String password) {
+		User user =  loginRepo.findByUserName(username);
+		if(user.getPassword().equals(password)) {
+			if(user.getCurrentRole().getRole().equals("admin")) {
+				return "admin";
+			}
+			return "user";
+		}
+		return "incorrent credentials";
 	}
 	
 	
 	
-	
-	
-	
-	
+//	//existing user check	
+//		public Boolean findByuserName(String user) {
+//			int exit=loginRepo.findByUserName(user);
+//		System.out.println(exit);
+////			if(exit==null) {
+////				return true;
+////			}
+//			
+//			return false;
+//			
+//		}
+		
+
 	//for user registration 
 	public void  insertUser(User u)
 	{
@@ -48,7 +62,7 @@ public class LoginService {
 	{
 		loginRepo.delete(u);
 	}	
-	public void deleteUserById(Long id)
+	public void deleteUserById(int id)
 	{
 		loginRepo.deleteById(id);
 	}
