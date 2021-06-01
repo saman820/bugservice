@@ -52,7 +52,7 @@ public class LoginController {
 	@PostMapping("/registration")
 	public ResponseEntity<User> registrationInsert(@RequestBody User user)
 	{
-		user.setCurrentRole(new Role(1, "user"));
+		user.setCurrentRole(new Role(1, "normal_user"));
 		if(loginServ.login(user.getUserName(), user.getPassword())!=null) {
 			user = loginServ.login(user.getUserName(), user.getPassword());
 		}
