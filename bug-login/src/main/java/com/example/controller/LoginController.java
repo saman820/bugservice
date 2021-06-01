@@ -53,9 +53,10 @@ public class LoginController {
 	public ResponseEntity<User> registrationInsert(@RequestBody User user)
 	{
 		user.setCurrentRole(new Role(1, "user"));
-		loginServ.insertUser(user);
-		System.out.println("user is saved successfully");
-		
+		if(loginServ.login(user.getUserName(), user.getPassword())!=null) {
+			user = loginServ.login(user.getUserName(), user.getPassword());
+		}
+		loginServ.insertUser(user);		
 		return new ResponseEntity<User>(user,HttpStatus.ACCEPTED);
 	}
 	
