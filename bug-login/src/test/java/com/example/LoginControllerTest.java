@@ -1,5 +1,6 @@
 package com.example;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -34,17 +35,7 @@ public class LoginControllerTest {
 		this.mockMvc
 				.perform(post("/logindetail").param("username", "divyareddy@gmail.com").param("password", "Divya@17"))
 //				.andExpect(status().isAccepted()).andExpect(content().string("user"));
-				.andExpect(status().isAccepted()).andExpect(content().string(("{\r\n"
-						+ "    \"userId\": 2,\r\n"
-						+ "    \"firstName\": \"user1\",\r\n"
-						+ "    \"lastName\": \"user1\",\r\n"
-						+ "    \"userName\": \"user1\",\r\n"
-						+ "    \"password\": \"pass1\",\r\n"
-						+ "    \"currentRole\": {\r\n"
-						+ "        \"roleId\": 1,\r\n"
-						+ "        \"role\": \"user\"\r\n"
-						+ "    }\r\n"
-						+ "}")));
+				.andExpect(status().isAccepted()).andExpect(content().string(containsString("\"userId\":2")));
 
 	}
 
