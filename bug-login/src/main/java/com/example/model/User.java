@@ -24,7 +24,7 @@ public class User {
 	@Column(name = "password", nullable = false)
 	private String password;
 	@JoinColumn(name = "role_id")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Role currentRole;
 	public User(int userId, String firstName, String lastName, String userName, String password, Role currentRole) {
 		super();
@@ -42,6 +42,14 @@ public class User {
 		this.userName = userName;
 		this.password = password;
 		this.currentRole = currentRole;
+	}
+	public User(int userId, String firstName, String lastName, String userName, String password) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.password = password;
 	}
 	public User() {
 		super();

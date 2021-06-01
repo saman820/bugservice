@@ -20,16 +20,28 @@ public class LoginService {
 	
 	
 	//for login 
-	public  String login(String username,String password) {
+	public  User login(String username,String password) {
 		User user =  loginRepo.findByUserName(username);
 		if(user.getPassword().equals(password)) {
-			if(user.getCurrentRole().getRole().equals("admin")) {
-				return "admin";
-			}
-			return "user";
+			return user;
 		}
-		return "incorrent credentials";
+		return null;
 	}
+
+	
+	
+		
+//	//for login 
+//	public  String login(String username,String password) {
+//		User user =  loginRepo.findByUserName(username);
+//		if(user.getPassword().equals(password)) {
+//			if(user.getCurrentRole().getRole().equals("admin")) {
+//				return "admin";
+//			}
+//			return "user";
+//		}
+//		return "incorrent credentials";
+//	}
 	
 	
 	

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.model.Role;
 import com.example.model.User;
 import com.example.service.LoginService;
 
@@ -49,12 +50,13 @@ public class LoginController {
 //	}
 	
 	@PostMapping("/registration")
-	public ResponseEntity<String> registrationInsert(@RequestBody User user)
+	public ResponseEntity<User> registrationInsert(@RequestBody User user)
 	{
+		user.setCurrentRole(new Role(1, "user"));
 		loginServ.insertUser(user);
 		System.out.println("user is saved successfully");
 		
-		return new ResponseEntity<String>("users are saved succesfully",HttpStatus.ACCEPTED);
+		return new ResponseEntity<User>(user,HttpStatus.ACCEPTED);
 	}
 	
 	
@@ -88,10 +90,11 @@ public class LoginController {
 
 	
 	@PostMapping("/logindetail")
-	public ResponseEntity<String> loginCheck(@RequestParam("username") String username,@RequestParam("password") String password)
+	public ResponseEntity<User> loginCheck(@RequestParam("username") String username,@RequestParam("password") String password)
+//	public ResponseEntity<User> loginCheck(@RequestBody User user)
 	{
-		String str =loginServ.login(username, password);
-		return new ResponseEntity<String>(str,HttpStatus.ACCEPTED);
+		User user2 =loginServ.login(username, password);
+		return new ResponseEntity<User>(user2,HttpStatus.ACCEPTED);
 	}
 	
 }
