@@ -1,13 +1,13 @@
 package com.example;
 
-import java.sql.SQLException;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.rsocket.RSocketProperties.Server;
-import org.springframework.context.annotation.Bean;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
+@EnableFeignClients(basePackages = {"com.example"})
+@EnableDiscoveryClient
 public class BugService1Application {
 	
 

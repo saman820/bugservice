@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.clients.BugClient;
 import com.example.model.Role;
 import com.example.model.User;
 import com.example.service.LoginService;
@@ -26,12 +27,14 @@ public class LoginController {
 
 	private LoginService loginServ;
 	//private RestTemplate restTemp;
+	
+	private BugClient bugClient;
 
 	@Autowired
-	public LoginController(LoginService loginServ) {
+	public LoginController(LoginService loginServ, BugClient bugClient) {
 		super();
 		this.loginServ = loginServ;
-		//this.restTemp = restTemp;
+		this.bugClient = bugClient;
 	}
 	
 //	@Bean
@@ -53,10 +56,12 @@ public class LoginController {
 	public ResponseEntity<User> registrationInsert(@RequestBody User user)
 	{
 		user.setCurrentRole(new Role(1, "normal_user"));
-		if(loginServ.login(user.getUserName(), user.getPassword())!=null) {
-			user = loginServ.login(user.getUserName(), user.getPassword());
-		}
+//		if(loginServ.login(user.getUserName(), user.getPassword())!=null) {
+//			user = loginServ.login(user.getUserName(), user.getPassword());
+//		}
 		loginServ.insertUser(user);		
+		bugClient.registerFromBugService(user);
+		
 		return new ResponseEntity<User>(user,HttpStatus.ACCEPTED);
 	}
 	
@@ -97,5 +102,7 @@ public class LoginController {
 		User user2 =loginServ.login(username, password);
 		return new ResponseEntity<User>(user2,HttpStatus.ACCEPTED);
 	}
+
+	
 	
 }

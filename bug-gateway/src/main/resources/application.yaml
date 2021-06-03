@@ -12,7 +12,7 @@ spring:
       - id: login
         uri: lb://login
         predicates:
-        - Path=/flashcard/**
+        - Path=/login/**
       #================
       - id: bug
         uri: lb://bug
